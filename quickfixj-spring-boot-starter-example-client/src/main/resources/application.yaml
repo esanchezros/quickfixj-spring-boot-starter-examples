@@ -1,3 +1,4 @@
 quickfixj:
   client:
     config: classpath:quickfixj-client.cfg
+    jmxEnabled: true
