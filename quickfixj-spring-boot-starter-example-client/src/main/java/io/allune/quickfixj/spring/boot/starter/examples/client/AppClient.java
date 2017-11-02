@@ -1,6 +1,6 @@
-package com.allune.quickfixj.spring.boot.starter.examples.client;
+package io.allune.quickfixj.spring.boot.starter.examples.client;
 
-import com.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
+import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.allune.quickfixj.spring.boot.starter</groupId>
+        <groupId>io.allune.quickfixj.spring.boot.starter</groupId>
         <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -23,7 +23,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.allune.quickfixj.spring.boot.starter</groupId>
+            <groupId>io.allune.quickfixj.spring.boot.starter</groupId>
             <artifactId>quickfixj-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

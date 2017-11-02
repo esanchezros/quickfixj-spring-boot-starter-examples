@@ -1,12 +1,12 @@
-package com.allune.quickfixj.spring.boot.starter.examples.server;
+package io.allune.quickfixj.spring.boot.starter.examples.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import quickfix.*;
 
-public class ServerApplicationAdapter implements Application {
+public class ClientApplicationAdapter implements Application {
 
-    private static final Logger log = LoggerFactory.getLogger(ServerApplicationAdapter.class);
+    private static final Logger log = LoggerFactory.getLogger(ClientApplicationAdapter.class);
 
     @Override
     public void fromAdmin(Message message, SessionID sessionId)
