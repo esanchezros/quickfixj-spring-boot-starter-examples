@@ -9,9 +9,9 @@
         <version>1.5.8.RELEASE</version>
     </parent>
 
-    <groupId>io.allune.quickfixj.spring.boot.starter</groupId>
+    <groupId>io.allune</groupId>
     <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>quickfixj-spring-boot-starter-examples</name>
@@ -31,9 +31,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.allune.quickfixj.spring.boot.starter</groupId>
+                <groupId>io.allune</groupId>
                 <artifactId>quickfixj-spring-boot-starter</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
