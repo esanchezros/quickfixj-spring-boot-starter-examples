@@ -1,2 +1,5 @@
 = Spring Boot Starter Examples for QuickFixJ
 
+== Main project
+
+https://github.com/esanchezros/quickfixj-spring-boot-starter[quickfixj-spring-boot-starter]
