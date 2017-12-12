@@ -2,3 +2,16 @@ quickfixj:
   server:
     config: classpath:quickfixj-server.cfg
     jmx-enabled: true
+
+server:
+  port: 8081
+
+management:
+  security:
+    enabled: false
+
+endpoints:
+  quickfixjserver:
+    id: qfjserver
+    enabled: true
+    sensitive: false
