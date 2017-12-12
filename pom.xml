@@ -10,7 +10,7 @@
 
     <groupId>io.allune</groupId>
     <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
 
     <name>quickfixj-spring-boot-starter-examples</name>
@@ -33,7 +33,7 @@
         <url>https://github.com/esanchezros/quickfixj-spring-boot-starter-examples</url>
         <connection>scm:git:git@github.com:esanchezros/quickfixj-spring-boot-starter-examples.git</connection>
         <developerConnection>scm:git:git@github.com:esanchezros/quickfixj-spring-boot-starter-examples.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>quickfixj-spring-boot-starter-examples-1.1.0</tag>
     </scm>
 
     <properties>
