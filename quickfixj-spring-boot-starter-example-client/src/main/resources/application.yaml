@@ -7,11 +7,10 @@ server:
   port: 8080
 
 management:
-  security:
-    enabled: false
-
-endpoints:
-  quickfixjclient:
-    id: qfjclient
-    enabled: true
-    sensitive: false
+  endpoint:
+    quickfixjclient:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: quickfixjclient

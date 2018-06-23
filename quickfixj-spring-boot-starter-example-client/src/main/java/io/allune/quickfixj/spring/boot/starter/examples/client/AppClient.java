@@ -31,12 +31,11 @@ public class AppClient implements CommandLineRunner {
     }
 
     @Bean
-    public Acceptor clientAcceptor(quickfix.Application clientApplication, MessageStoreFactory clientMessageStoreFactory,
-                                   SessionSettings clientSessionSettings, LogFactory clientLogFactory,
-                                   MessageFactory clientMessageFactory) throws ConfigError {
+    public Initiator clientInitiator(quickfix.Application clientApplication, MessageStoreFactory clientMessageStoreFactory,
+                                     SessionSettings clientSessionSettings, LogFactory clientLogFactory,
+                                     MessageFactory clientMessageFactory) throws ConfigError {
 
-        return new ThreadedSocketAcceptor(clientApplication, clientMessageStoreFactory, clientSessionSettings,
+        return new ThreadedSocketInitiator(clientApplication, clientMessageStoreFactory, clientSessionSettings,
                 clientLogFactory, clientMessageFactory);
-
     }
 }

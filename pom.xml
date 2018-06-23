@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>2.0.3.RELEASE</version>
     </parent>
 
     <groupId>io.allune</groupId>
     <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>quickfixj-spring-boot-starter-examples</name>
@@ -47,12 +47,12 @@
             <dependency>
                 <groupId>io.allune</groupId>
                 <artifactId>quickfixj-spring-boot-starter</artifactId>
-                <version>1.1.0</version>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>io.allune</groupId>
                 <artifactId>quickfixj-spring-boot-actuator</artifactId>
-                <version>1.1.0</version>
+                <version>2.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

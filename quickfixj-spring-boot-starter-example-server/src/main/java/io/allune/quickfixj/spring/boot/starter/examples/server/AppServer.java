@@ -15,7 +15,6 @@ public class AppServer implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(AppServer.class);
 
-
     public static void main(String[] args) {
         SpringApplication.run(AppServer.class, args);
     }
