@@ -1,4 +1,4 @@
-= Spring Boot Starter Examples for QuickFixJ
+= Spring Boot Starter Examples for QuickFixJ (Spring Boot 2)
 
 == Main project
 
