@@ -1,0 +1,21 @@
+version: '2.1'
+services:
+
+  quickfixj-spring-boot-server:
+    build: quickfixj-spring-boot-server
+    environment:
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
+
+    ports:
+    - "9876:9876"
+    - "9877:9877"
+    - "9878:9878"
+    - "9879:9879"
+    - "9880:9880"
+    - "9881:9881"
+    - "9800:8000"
+    healthcheck:
+      test: "netstat -nl | grep -q 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
