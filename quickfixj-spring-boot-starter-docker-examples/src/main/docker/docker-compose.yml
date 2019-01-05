@@ -14,6 +14,7 @@ services:
     - "9880:9880"
     - "9881:9881"
     - "9800:8000"
+    - "9080:8080"
     healthcheck:
       test: "netstat -nl | grep -q 9881"
       interval: 6s
