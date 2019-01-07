@@ -1,90 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
-        <groupId>io.allune</groupId>
-        <version>2.1.1-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>quickfixj-spring-boot-starter-examples</artifactId>
+		<groupId>io.allune</groupId>
+		<version>2.1.1-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quickfixj-spring-boot-starter-docker-examples</artifactId>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>io.allune</groupId>
-                                    <artifactId>quickfixj-spring-boot-starter-example-server</artifactId>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/docker/quickfixj-spring-boot-server</outputDirectory>
-                                    <destFileName>quickfixj-spring-boot-server.jar</destFileName>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>io.allune</groupId>
-                                    <artifactId>quickfixj-spring-boot-starter-example-client</artifactId>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/docker/quickfixj-spring-boot-client</outputDirectory>
-                                    <destFileName>quickfixj-spring-boot-client.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-
+	<artifactId>quickfixj-spring-boot-starter-docker-examples</artifactId>
+	<name>quickfixj-spring-boot-starter-docker-examples</name>
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
 				<executions>
 					<execution>
-						<id>copy-docker-resources</id>
-						<phase>process-resources</phase>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
 						<goals>
-							<goal>copy-resources</goal>
+							<goal>copy</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/docker</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/src/test/docker</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
+							<artifactItems>
+								<artifactItem>
+									<groupId>io.allune</groupId>
+									<artifactId>quickfixj-spring-boot-starter-example-server</artifactId>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/docker/quickfixj-spring-boot-server</outputDirectory>
+									<destFileName>quickfixj-spring-boot-server.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>io.allune</groupId>
+									<artifactId>quickfixj-spring-boot-starter-example-client</artifactId>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/docker/quickfixj-spring-boot-client</outputDirectory>
+									<destFileName>quickfixj-spring-boot-client.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-        </plugins>
-    </build>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -1,6 +1,6 @@
 quickfixj:
   client:
-    config: classpath:quickfixj-client.cfg
+    config: file:/opt/app/quickfixj-client.cfg
     jmx-enabled: true
 
 server:
