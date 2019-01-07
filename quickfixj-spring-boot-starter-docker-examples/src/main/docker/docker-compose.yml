@@ -5,7 +5,6 @@ services:
     image: allune/quickfixj-spring-boot-starter-example-server:2.1.1-SNAPSHOT
     environment:
       JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
-
     ports:
     - "9876:9876"
     - "9877:9877"
