@@ -2,16 +2,10 @@ version: '2.1'
 services:
 
   quickfixj-spring-boot-server:
-    image: allune/quickfixj-spring-boot-starter-example-server:2.1.1-SNAPSHOT
+    image: allune/quickfixj-spring-boot-starter-example-server
     environment:
       JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
     ports:
-    - "9876:9876"
-    - "9877:9877"
-    - "9878:9878"
-    - "9879:9879"
-    - "9880:9880"
-    - "9881:9881"
     - "9800:8000"
     - "9080:8080"
     healthcheck:
@@ -21,7 +15,7 @@ services:
       retries: 10
 
   quickfixj-spring-boot-client:
-    image: allune/quickfixj-spring-boot-starter-example-client:2.1.1-SNAPSHOT
+    image: allune/quickfixj-spring-boot-starter-example-client
     environment:
       JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
     depends_on:

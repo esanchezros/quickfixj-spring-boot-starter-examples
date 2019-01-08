@@ -137,13 +137,24 @@
 							<goals>
 								<goal>build</goal>
 							</goals>
+							<configuration>
+								<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+								<dockerDirectory>${project.build.directory}/docker</dockerDirectory>
+								<skipDockerBuild>${skipDockerBuild}</skipDockerBuild>
+							</configuration>
+						</execution>
+						<execution>
+							<id>tag-image</id>
+							<phase>package</phase>
+							<goals>
+								<goal>tag</goal>
+							</goals>
+							<configuration>
+								<image>${docker.image.prefix}/${project.artifactId}:${project.version}</image>
+								<newName>${docker.image.prefix}/${project.artifactId}:latest</newName>
+							</configuration>
 						</execution>
 					</executions>
-					<configuration>
-						<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
-						<dockerDirectory>${project.build.directory}/docker</dockerDirectory>
-						<skipDockerBuild>${skipDockerBuild}</skipDockerBuild>
-					</configuration>
 				</plugin>
             </plugins>
         </pluginManagement>
