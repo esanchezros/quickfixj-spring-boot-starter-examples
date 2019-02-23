@@ -4,4 +4,4 @@ sudo: false
 services:
   - docker
 
-script: "mvn clean verify -DskipDocker=false"
+script: "mvn clean verify"

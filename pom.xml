@@ -42,7 +42,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-		<skipDocker>true</skipDocker>
+		<skipDocker>false</skipDocker>
 		<docker.image.prefix>allune</docker.image.prefix>
     </properties>
 
@@ -102,61 +102,11 @@
                         <goals>deploy</goals>
                     </configuration>
                 </plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.7</version>
-					<executions>
-						<execution>
-							<id>copy-docker-resources</id>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${project.build.directory}/docker</outputDirectory>
-								<resources>
-									<resource>
-										<directory>${project.basedir}/src/docker</directory>
-										<filtering>true</filtering>
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.spotify</groupId>
-					<artifactId>docker-maven-plugin</artifactId>
-					<version>1.2.0</version>
-					<executions>
-						<execution>
-							<id>build-image</id>
-							<phase>package</phase>
-							<goals>
-								<goal>build</goal>
-							</goals>
-							<configuration>
-								<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
-								<dockerDirectory>${project.build.directory}/docker</dockerDirectory>
-								<skipDocker>${skipDocker}</skipDocker>
-							</configuration>
-						</execution>
-						<execution>
-							<id>tag-image</id>
-							<phase>package</phase>
-							<goals>
-								<goal>tag</goal>
-							</goals>
-							<configuration>
-								<image>${docker.image.prefix}/${project.artifactId}:${project.version}</image>
-								<newName>${docker.image.prefix}/${project.artifactId}:latest</newName>
-                                <skipDocker>${skipDocker}</skipDocker>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.28.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
