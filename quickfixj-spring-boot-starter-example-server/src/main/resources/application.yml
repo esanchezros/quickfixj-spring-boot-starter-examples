@@ -1,10 +1,10 @@
 quickfixj:
   server:
-    config: classpath:quickfixj-server.cfg
+    config: ${QUICKFIXJ_SERVER_CONFIG_FILE:classpath:quickfixj-server.cfg}
     jmx-enabled: true
 
 server:
-  port: 8081
+  port: 8080
 
 management:
   endpoint:

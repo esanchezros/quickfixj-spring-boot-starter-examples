@@ -4,3 +4,37 @@
 
 https://github.com/esanchezros/quickfixj-spring-boot-starter[quickfixj-spring-boot-starter]
 
+=== Server Example
+
+The quickfixj server example can be run directly from the IDE or in the command line:
+
+    java -jar quickfixj-spring-boot-starter-example-server/target/quickfixj-spring-boot-starter-example-server.jar
+
+=== Client Example
+
+The quickfixj client example can be run directly from the IDE or in the command line:
+
+    java -jar quickfixj-spring-boot-starter-example-client/target/quickfixj-spring-boot-starter-example-client.jar
+
+=== Docker Examples
+
+To build the docker containers:
+
+    mvn clean install -DskipDocker=false
+
+==== Simple Client-Server
+
+Go to `quickfixj-spring-boot-starter-docker-examples/src/main/docker` and run:
+
+    docker-compose -f docker-compose.yml up -d
+
+==== Client-Server with Failover
+
+Go to `quickfixj-spring-boot-starter-docker-examples/src/main/docker` and run:
+
+    docker-compose -f docker-compose-failover.yml up -d
+
+If you want to see the failover in action, kill the first server container and see the client reconnecting to the second
+server after around a minute or so:
+
+    docker rm -f quickfixj-spring-boot-server

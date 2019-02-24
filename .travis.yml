@@ -1,4 +1,7 @@
 language: java
-sudo: false
+sudo: required
+
+services:
+- docker
 
 script: "mvn clean verify"
