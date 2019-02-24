@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM openjdk:8-alpine
 
 ADD maven/quickfixj-spring-boot-starter-example-server.jar /opt/app/application.jar
 ADD quickfixj-server.cfg /opt/app/quickfixj-server.cfg
