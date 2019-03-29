@@ -10,7 +10,7 @@
 
     <groupId>io.allune</groupId>
     <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>quickfixj-spring-boot-starter-examples</name>
@@ -19,9 +19,11 @@
 
     <modules>
         <module>quickfixj-spring-boot-starter-example-client</module>
-        <module>quickfixj-spring-boot-starter-example-server</module>
-        <module>quickfixj-spring-boot-starter-docker-examples</module>
-    </modules>
+		<module>quickfixj-spring-boot-starter-example-client-listener</module>
+		<module>quickfixj-spring-boot-starter-example-server</module>
+		<module>quickfixj-spring-boot-starter-example-server-listener</module>
+		<module>quickfixj-spring-boot-starter-docker-examples</module>
+	</modules>
 
     <licenses>
         <license>
@@ -51,12 +53,12 @@
             <dependency>
                 <groupId>io.allune</groupId>
                 <artifactId>quickfixj-spring-boot-starter</artifactId>
-                <version>2.2.0</version>
+                <version>2.4.0</version>
             </dependency>
             <dependency>
                 <groupId>io.allune</groupId>
                 <artifactId>quickfixj-spring-boot-actuator</artifactId>
-                <version>2.2.0</version>
+                <version>2.4.0</version>
             </dependency>
             <dependency>
                 <groupId>io.allune</groupId>

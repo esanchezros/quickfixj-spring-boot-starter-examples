@@ -1,19 +1,25 @@
 package io.allune.quickfixj.spring.boot.starter.examples.client;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import quickfix.*;
 
+import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
+import lombok.extern.slf4j.Slf4j;
+import quickfix.Application;
+import quickfix.ConfigError;
+import quickfix.Initiator;
+import quickfix.LogFactory;
+import quickfix.MessageFactory;
+import quickfix.MessageStoreFactory;
+import quickfix.SessionSettings;
+import quickfix.ThreadedSocketInitiator;
+
+@Slf4j
 @EnableQuickFixJClient
 @SpringBootApplication
 public class AppClient implements CommandLineRunner {
-
-    private static final Logger log = LoggerFactory.getLogger(AppClient.class);
 
     public static void main(String[] args) {
         SpringApplication.run(AppClient.class, args);
