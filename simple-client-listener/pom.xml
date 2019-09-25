@@ -7,10 +7,10 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>quickfixj-spring-boot-starter-example-client-listener</artifactId>
+	<artifactId>simple-client-listener</artifactId>
 	<packaging>jar</packaging>
 
-	<name>quickfixj-spring-boot-starter-example-client-listener</name>
+	<name>QuickFixJ Spring Boot Starter Examples :: Simple Client Listener</name>
 	<description>QuickFixJ Spring Boot Starter Client Listener Example</description>
 
 	<properties>

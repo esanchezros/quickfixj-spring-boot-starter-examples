@@ -7,8 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quickfixj-spring-boot-starter-docker-examples</artifactId>
-    <name>quickfixj-spring-boot-starter-docker-examples</name>
+    <artifactId>docker-examples</artifactId>
+
+    <name>QuickFixJ Spring Boot Starter Examples :: Docker Examples</name>
+    <description>QuickFixJ Spring Boot Starter Docker Examples</description>
 
     <dependencies>
         <dependency>

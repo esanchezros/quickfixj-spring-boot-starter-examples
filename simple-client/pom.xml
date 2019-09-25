@@ -8,11 +8,11 @@
         <version>2.4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>quickfixj-spring-boot-starter-example-server-listener</artifactId>
+    <artifactId>simple-client</artifactId>
     <packaging>jar</packaging>
 
-    <name>quickfixj-spring-boot-starter-example-server-listener</name>
-    <description>QuickFixJ Spring Boot Starter Server Listener Example</description>
+    <name>QuickFixJ Spring Boot Starter Examples :: Simple Client</name>
+    <description>QuickFixJ Spring Boot Starter Client Example</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,20 +36,20 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
     </dependencies>
 
     <build>
-		<finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

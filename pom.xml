@@ -13,16 +13,16 @@
     <version>2.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>quickfixj-spring-boot-starter-examples</name>
+    <name>QuickFixJ Spring Boot Starter Examples</name>
     <description>QuickFixJ Spring Boot Starter Examples</description>
     <url>https://github.com/esanchezros/quickfixj-spring-boot-starter-examples</url>
 
     <modules>
-        <module>quickfixj-spring-boot-starter-example-client</module>
-		<module>quickfixj-spring-boot-starter-example-client-listener</module>
-		<module>quickfixj-spring-boot-starter-example-server</module>
-		<module>quickfixj-spring-boot-starter-example-server-listener</module>
-		<module>quickfixj-spring-boot-starter-docker-examples</module>
+        <module>simple-client</module>
+		<module>simple-client-listener</module>
+		<module>simple-server</module>
+		<module>simple-server-listener</module>
+		<module>docker-examples</module>
 	</modules>
 
     <licenses>
