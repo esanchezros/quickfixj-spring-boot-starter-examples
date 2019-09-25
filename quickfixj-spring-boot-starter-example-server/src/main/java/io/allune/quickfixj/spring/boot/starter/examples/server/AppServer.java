@@ -39,4 +39,9 @@ public class AppServer implements CommandLineRunner {
                 serverLogFactory, serverMessageFactory);
 
     }
+
+    @Bean
+    public LogFactory serverLogFactory(SessionSettings serverSessionSettings) {
+        return new FileLogFactory(serverSessionSettings);
+    }
 }

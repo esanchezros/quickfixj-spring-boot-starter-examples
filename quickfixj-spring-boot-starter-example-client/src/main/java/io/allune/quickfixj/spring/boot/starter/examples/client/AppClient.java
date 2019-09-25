@@ -9,6 +9,7 @@ import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
 import lombok.extern.slf4j.Slf4j;
 import quickfix.Application;
 import quickfix.ConfigError;
+import quickfix.FileLogFactory;
 import quickfix.Initiator;
 import quickfix.LogFactory;
 import quickfix.MessageFactory;
@@ -43,5 +44,10 @@ public class AppClient implements CommandLineRunner {
 
         return new ThreadedSocketInitiator(clientApplication, clientMessageStoreFactory, clientSessionSettings,
                 clientLogFactory, clientMessageFactory);
+    }
+
+    @Bean
+    public LogFactory clientLogFactory(SessionSettings clientSessionSettings) {
+        return new FileLogFactory(clientSessionSettings);
     }
 }
