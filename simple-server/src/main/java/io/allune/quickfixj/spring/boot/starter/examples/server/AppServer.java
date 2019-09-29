@@ -7,7 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import quickfix.*;
+import quickfix.Acceptor;
+import quickfix.Application;
+import quickfix.ConfigError;
+import quickfix.FileLogFactory;
+import quickfix.LogFactory;
+import quickfix.MessageFactory;
+import quickfix.MessageStoreFactory;
+import quickfix.SessionSettings;
+import quickfix.ThreadedSocketAcceptor;
 
 @EnableQuickFixJServer
 @SpringBootApplication
@@ -37,7 +45,6 @@ public class AppServer implements CommandLineRunner {
 
         return new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
                 serverLogFactory, serverMessageFactory);
-
     }
 
     @Bean

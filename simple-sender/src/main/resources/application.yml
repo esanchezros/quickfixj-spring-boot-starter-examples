@@ -1,0 +1,7 @@
+quickfixj:
+  server:
+    config: ${QUICKFIXJ_SERVER_CONFIG_FILE:classpath:quickfixj-server.cfg}
+    jmx-enabled: false
+
+server:
+  port: 8089
