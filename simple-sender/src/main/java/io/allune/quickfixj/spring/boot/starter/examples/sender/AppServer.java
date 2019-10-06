@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableQuickFixJServer
 @SpringBootApplication
-public class Application {
+public class AppServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(AppServer.class, args);
     }
 }

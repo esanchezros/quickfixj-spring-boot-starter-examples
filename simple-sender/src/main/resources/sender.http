@@ -6,6 +6,6 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://localhost:8089/sender
+GET http://localhost:8089/send-message?beginString=FIX.4.1&messageType=OrderCancelRequest
 
 ###
