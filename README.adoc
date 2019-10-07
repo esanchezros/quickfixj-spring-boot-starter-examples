@@ -4,17 +4,33 @@
 
 https://github.com/esanchezros/quickfixj-spring-boot-starter[quickfixj-spring-boot-starter]
 
-=== Server Example
+=== Build the project
 
-The quickfixj server example can be run directly from the IDE or in the command line:
+    mvn clean install
 
-    java -jar quickfixj-spring-boot-starter-example-server/target/quickfixj-spring-boot-starter-example-server.jar
+=== Simple Server Example
 
-=== Client Example
+The simple server example can be run directly from the IDE or in the command line:
 
-The quickfixj client example can be run directly from the IDE or in the command line:
+    java -jar simple-server/target/simple-server.jar
 
-    java -jar quickfixj-spring-boot-starter-example-client/target/quickfixj-spring-boot-starter-example-client.jar
+=== Simple Server with Application Listener Example
+
+The simple server example can be run directly from the IDE or in the command line:
+
+    java -jar simple-server-listener/target/simple-server-listener.jar
+
+=== Simple Client Example
+
+The simple client example can be run directly from the IDE or in the command line:
+
+    java -jar simple-client/target/simple-client.jar
+
+=== Simple Client with Application Listener Example
+
+The simple client example can be run directly from the IDE or in the command line:
+
+    java -jar simple-client-listener/target/simple-client-listener.jar
 
 === Docker Examples
 
@@ -22,15 +38,15 @@ To build the docker containers:
 
     mvn clean install -DskipDocker=false
 
-==== Simple Client-Server
+==== Client-Server
 
-Go to `quickfixj-spring-boot-starter-docker-examples/src/main/docker` and run:
+Go to `docker-server-client/src/main/docker` and run:
 
     docker-compose -f docker-compose.yml up -d
 
 ==== Client-Server with Failover
 
-Go to `quickfixj-spring-boot-starter-docker-examples/src/main/docker` and run:
+Go to `docker-server-client-with-failover/src/main/docker` and run:
 
     docker-compose -f docker-compose-failover.yml up -d
 

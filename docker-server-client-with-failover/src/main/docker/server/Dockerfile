@@ -1,7 +1,8 @@
 FROM openjdk:8-alpine
 
-ADD maven/quickfixj-spring-boot-starter-example-server.jar /opt/app/application.jar
+ADD maven/simple-server.jar /opt/app/application.jar
 ADD quickfixj-server.cfg /opt/app/quickfixj-server.cfg
+RUN mkdir -p /tmp/logs
 ENV JAVA_OPTS="$JAVA_OPTS -Xmx512m -Xms512m"
 
 EXPOSE 9876

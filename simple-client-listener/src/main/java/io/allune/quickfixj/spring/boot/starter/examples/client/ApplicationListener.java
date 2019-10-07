@@ -1,8 +1,5 @@
 package io.allune.quickfixj.spring.boot.starter.examples.client;
 
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
-
 import io.allune.quickfixj.spring.boot.starter.model.Create;
 import io.allune.quickfixj.spring.boot.starter.model.FromAdmin;
 import io.allune.quickfixj.spring.boot.starter.model.FromApp;
@@ -11,9 +8,11 @@ import io.allune.quickfixj.spring.boot.starter.model.Logout;
 import io.allune.quickfixj.spring.boot.starter.model.ToAdmin;
 import io.allune.quickfixj.spring.boot.starter.model.ToApp;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
+@Component
 public class ApplicationListener {
 
 	@EventListener

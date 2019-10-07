@@ -1,7 +1,8 @@
 FROM openjdk:8-alpine
 
-ADD maven/quickfixj-spring-boot-starter-example-client.jar /opt/app/application.jar
+ADD maven/simple-client.jar /opt/app/application.jar
 ADD quickfixj-client-failover.cfg /opt/app/quickfixj-client-failover.cfg
+RUN mkdir -p /tmp/logs
 ENV JAVA_OPTS="$JAVA_OPTS -Xmx512m -Xms512m"
 
 EXPOSE 8080

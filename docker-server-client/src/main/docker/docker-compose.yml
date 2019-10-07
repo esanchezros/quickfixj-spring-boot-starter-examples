@@ -1,8 +1,16 @@
 version: '2.1'
 services:
 
+  busybox:
+    image: busybox
+    depends_on:
+      quickfixj-spring-boot-server:
+        condition: service_healthy
+      quickfixj-spring-boot-client:
+        condition: service_healthy
+
   quickfixj-spring-boot-server:
-    image: allune/quickfixj-spring-boot-starter-example-server
+    image: allune/simple-server
     container_name: quickfixj-spring-boot-server
     environment:
       JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
@@ -17,7 +25,7 @@ services:
       retries: 10
 
   quickfixj-spring-boot-client:
-    image: allune/quickfixj-spring-boot-starter-example-client
+    image: allune/simple-client
     container_name: quickfixj-spring-boot-client
     environment:
       JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
@@ -28,3 +36,8 @@ services:
     ports:
       - "9801:8000"
       - "9081:8080"
+    healthcheck:
+      test: "netstat -natu | grep 'ESTABLISHED' | grep 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10

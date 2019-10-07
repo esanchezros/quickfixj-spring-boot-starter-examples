@@ -64,12 +64,12 @@
             </dependency>
             <dependency>
                 <groupId>io.allune</groupId>
-                <artifactId>quickfixj-spring-boot-starter-example-server</artifactId>
+                <artifactId>simple-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.allune</groupId>
-                <artifactId>quickfixj-spring-boot-starter-example-client</artifactId>
+                <artifactId>simple-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
