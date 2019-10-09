@@ -50,7 +50,6 @@ Go to `docker-server-client-with-failover/src/main/docker` and run:
 
     docker-compose -f docker-compose-failover.yml up -d
 
-If you want to see the failover in action, kill the first server container and see the client reconnecting to the second
-server after around a minute or so:
+If you want to see the failover in action, kill the first server container and see the client reconnecting to the second server after around a minute or so:
 
     docker rm -f quickfixj-spring-boot-server
