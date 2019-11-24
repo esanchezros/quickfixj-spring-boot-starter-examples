@@ -16,17 +16,11 @@
 
 package io.allune.quickfixj.spring.boot.starter.examples.sender;
 
-import static java.util.UUID.randomUUID;
-import static org.springframework.http.HttpStatus.OK;
-
-import java.util.HashMap;
-import java.util.Map;
+import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import quickfix.Acceptor;
 import quickfix.Message;
 import quickfix.SessionID;
@@ -36,6 +30,12 @@ import quickfix.field.OrigClOrdID;
 import quickfix.field.Side;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.util.UUID.randomUUID;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 public class SenderController {
@@ -74,8 +74,6 @@ public class SenderController {
 		Message message = stringMessageMap.get(messageType);
 		message.setField(new StringField(Text.FIELD, "Text: " + randomUUID().toString()));
 
-		// TODO: Create autoconfigurable rest controllers to get messages from message store
-		// TODO: Create session lookup service bean
 		SessionID sessionID = serverAcceptor.getSessions().stream()
 				.filter(id -> id.getBeginString().equals(beginString))
 				.findFirst()
