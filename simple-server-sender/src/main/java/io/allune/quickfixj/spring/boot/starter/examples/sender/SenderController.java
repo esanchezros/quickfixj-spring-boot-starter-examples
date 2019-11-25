@@ -27,6 +27,7 @@ import quickfix.SessionID;
 import quickfix.StringField;
 import quickfix.field.ClOrdID;
 import quickfix.field.OrigClOrdID;
+import quickfix.field.QuoteID;
 import quickfix.field.Side;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
@@ -36,6 +37,8 @@ import java.util.Map;
 
 import static java.util.UUID.randomUUID;
 import static org.springframework.http.HttpStatus.OK;
+import static quickfix.FixVersions.BEGINSTRING_FIX41;
+import static quickfix.FixVersions.BEGINSTRING_FIXT11;
 
 @RestController
 public class SenderController {
@@ -44,17 +47,25 @@ public class SenderController {
 
 	private static HashMap<String, Map<String, Message>> createMessageMap() {
 		HashMap<String, Map<String, Message>> stringMapHashMap = new HashMap<>();
-		stringMapHashMap.put("FIX.4.1", new HashMap<String, Message>() {
-
-			{
-				put("OrderCancelRequest", new quickfix.fix41.OrderCancelRequest(
-						new OrigClOrdID("123"),
-						new ClOrdID("321"),
-						new Symbol("LNUX"),
-						new Side(Side.BUY)));
-			}
-		});
+		stringMapHashMap.put(BEGINSTRING_FIX41, initialiseFix41MessageMap());
+		stringMapHashMap.put(BEGINSTRING_FIXT11, initialiseFix50MessageMap());
 		return stringMapHashMap;
+	}
+
+	private static Map<String, Message> initialiseFix41MessageMap() {
+		Map<String, Message> messageMap = new HashMap<>();
+		messageMap.put("OrderCancelRequest", new quickfix.fix41.OrderCancelRequest(
+				new OrigClOrdID("123"),
+				new ClOrdID("321"),
+				new Symbol("LNUX"),
+				new Side(Side.BUY)));
+		return messageMap;
+	}
+
+	private static Map<String, Message> initialiseFix50MessageMap() {
+		Map<String, Message> messageMap = new HashMap<>();
+		messageMap.put("Quote", new quickfix.fix50.Quote(new QuoteID("123")));
+		return messageMap;
 	}
 
 	private final QuickFixJTemplate quickFixJTemplate;
@@ -68,14 +79,14 @@ public class SenderController {
 
 	@RequestMapping("/send-message")
 	@ResponseStatus(OK)
-	public void sendMessage(@RequestParam String beginString, @RequestParam String messageType) {
+	public void sendMessage(@RequestParam String fixVersion, @RequestParam String messageType) {
 
-		Map<String, Message> stringMessageMap = messageMap.get(beginString);
+		Map<String, Message> stringMessageMap = messageMap.get(fixVersion);
 		Message message = stringMessageMap.get(messageType);
 		message.setField(new StringField(Text.FIELD, "Text: " + randomUUID().toString()));
 
 		SessionID sessionID = serverAcceptor.getSessions().stream()
-				.filter(id -> id.getBeginString().equals(beginString))
+				.filter(id -> id.getBeginString().equals(fixVersion))
 				.findFirst()
 				.orElseThrow(RuntimeException::new);
 		quickFixJTemplate.send(message, sessionID);
