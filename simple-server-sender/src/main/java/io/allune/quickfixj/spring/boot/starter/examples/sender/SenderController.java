@@ -16,11 +16,19 @@
 
 package io.allune.quickfixj.spring.boot.starter.examples.sender;
 
-import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
+import static java.util.UUID.randomUUID;
+import static org.springframework.http.HttpStatus.OK;
+import static quickfix.FixVersions.BEGINSTRING_FIX41;
+import static quickfix.FixVersions.BEGINSTRING_FIXT11;
+
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import quickfix.Acceptor;
 import quickfix.Message;
 import quickfix.SessionID;
@@ -31,14 +39,6 @@ import quickfix.field.QuoteID;
 import quickfix.field.Side;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.util.UUID.randomUUID;
-import static org.springframework.http.HttpStatus.OK;
-import static quickfix.FixVersions.BEGINSTRING_FIX41;
-import static quickfix.FixVersions.BEGINSTRING_FIXT11;
 
 @RestController
 public class SenderController {
@@ -72,8 +72,8 @@ public class SenderController {
 
 	private final Acceptor serverAcceptor;
 
-	public SenderController(QuickFixJTemplate quickFixJTemplate, Acceptor serverAcceptor) {
-		this.quickFixJTemplate = quickFixJTemplate;
+	public SenderController(QuickFixJTemplate serverQuickFixJTemplate, Acceptor serverAcceptor) {
+		this.quickFixJTemplate = serverQuickFixJTemplate;
 		this.serverAcceptor = serverAcceptor;
 	}
 
