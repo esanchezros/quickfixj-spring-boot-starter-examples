@@ -1,0 +1,100 @@
+version: '2.1'
+services:
+
+  busybox:
+    image: busybox
+    depends_on:
+      quickfixj-spring-boot-server:
+        condition: service_healthy
+      quickfixj-spring-boot-server-1:
+        condition: service_healthy
+      quickfixj-spring-boot-server-2:
+        condition: service_healthy
+      quickfixj-spring-boot-server-3:
+        condition: service_healthy
+      quickfixj-spring-boot-client-failover:
+        condition: service_healthy
+
+  quickfixj-spring-boot-client-failover:
+    image: allune/simple-client-failover
+    container_name: quickfixj-spring-boot-client-failover
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      QUIICKFIXJ_CLIENT_CONFIG_FILE: "file:/opt/app/quickfixj-client-failover.cfg"
+    depends_on:
+      quickfixj-spring-boot-server:
+        condition: service_healthy
+      quickfixj-spring-boot-server-1:
+        condition: service_healthy
+      quickfixj-spring-boot-server-2:
+        condition: service_healthy
+      quickfixj-spring-boot-server-3:
+        condition: service_healthy
+    ports:
+      - "9001:8000"
+      - "9081:8080"
+    healthcheck:
+      test: "netstat -natu | grep 'ESTABLISHED' | grep 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
+
+  quickfixj-spring-boot-server:
+    image: allune/simple-server
+    container_name: quickfixj-spring-boot-server
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      QUICKFIXJ_SERVER_CONFIG_FILE: "file:/opt/app/quickfixj-server.cfg"
+    ports:
+      - "9000:8000"
+      - "9080:8080"
+    healthcheck:
+      test: "netstat -nl | grep -q 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
+
+  quickfixj-spring-boot-server-1:
+    image: allune/simple-server
+    container_name: quickfixj-spring-boot-server-1
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      QUICKFIXJ_SERVER_CONFIG_FILE: "file:/opt/app/quickfixj-server.cfg"
+    ports:
+      - "9002:8000"
+      - "9082:8080"
+    healthcheck:
+      test: "netstat -nl | grep -q 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
+
+  quickfixj-spring-boot-server-2:
+    image: allune/simple-server
+    container_name: quickfixj-spring-boot-server-2
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      QUICKFIXJ_SERVER_CONFIG_FILE: "file:/opt/app/quickfixj-server.cfg"
+    ports:
+      - "9003:8000"
+      - "9083:8080"
+    healthcheck:
+      test: "netstat -nl | grep -q 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
+
+  quickfixj-spring-boot-server-3:
+    image: allune/simple-server
+    container_name: quickfixj-spring-boot-server-3
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      QUICKFIXJ_SERVER_CONFIG_FILE: "file:/opt/app/quickfixj-server.cfg"
+    ports:
+      - "9004:8000"
+      - "9084:8080"
+    healthcheck:
+      test: "netstat -nl | grep -q 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10

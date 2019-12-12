@@ -1,0 +1,2 @@
+Extend examples to include sending different types of transactions.
+Create integration with rabbitmq and docker
