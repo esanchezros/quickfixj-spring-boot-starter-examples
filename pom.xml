@@ -25,6 +25,7 @@
 		<module>docker-server-client</module>
 		<module>docker-server-client-with-failover</module>
 		<module>simple-server-sender</module>
+		<module>simple-client-and-server</module>
 	</modules>
 
 	<licenses>
