@@ -16,13 +16,12 @@
 
 package io.allune.quickfixj.spring.boot.starter.examples.client;
 
+import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
-import lombok.extern.slf4j.Slf4j;
 import quickfix.Application;
 import quickfix.ConfigError;
 import quickfix.FileLogFactory;
@@ -32,6 +31,7 @@ import quickfix.MessageFactory;
 import quickfix.MessageStoreFactory;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketInitiator;
+import quickfix.fix41.MessageCracker;
 
 @Slf4j
 @EnableQuickFixJClient
@@ -49,8 +49,13 @@ public class AppClient implements CommandLineRunner {
 	}
 
 	@Bean
-	public Application clientApplication() {
-		return new ClientApplicationAdapter();
+    public Application clientApplication(MessageCracker messageCracker) {
+        return new ClientApplicationAdapter(messageCracker);
+    }
+
+    @Bean
+    public MessageCracker messageCracker() {
+        return new ApplicationMessageCracker();
 	}
 
 	@Bean
