@@ -4,4 +4,4 @@ quickfixj:
     jmx-enabled: false
 
 server:
-  port: 8089
+  port: 8080

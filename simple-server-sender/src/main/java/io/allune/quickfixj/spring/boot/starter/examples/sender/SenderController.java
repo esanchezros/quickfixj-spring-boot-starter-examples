@@ -23,6 +23,9 @@ import static quickfix.FixVersions.BEGINSTRING_FIXT11;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,14 +34,18 @@ import org.springframework.web.bind.annotation.RestController;
 import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import quickfix.Acceptor;
 import quickfix.Message;
+import quickfix.Session;
 import quickfix.SessionID;
+import quickfix.SessionNotFound;
 import quickfix.StringField;
 import quickfix.field.ClOrdID;
 import quickfix.field.OrigClOrdID;
 import quickfix.field.QuoteID;
+import quickfix.field.QuoteReqID;
 import quickfix.field.Side;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
+import quickfix.fix42.QuoteRequest;
 
 @RestController
 public class SenderController {
@@ -90,5 +97,28 @@ public class SenderController {
 				.findFirst()
 				.orElseThrow(RuntimeException::new);
 		quickFixJTemplate.send(message, sessionID);
+	}
+
+	@GetMapping(path = "/path1")
+	public ResponseEntity<?> getPath1() throws SessionNotFound {
+		QuoteRequest quoteRequest = createQuoteRequest(UUID.randomUUID());
+		SessionID sessionID = new SessionID("FIX.4.2", "EXEC", "BANZAI");
+		Session.sendToTarget(quoteRequest, sessionID);
+
+		return ResponseEntity.ok("OK");
+	}
+
+	@GetMapping(path = "/path2")
+	public ResponseEntity<?> getPath2() throws SessionNotFound {
+		QuoteRequest quoteRequest = createQuoteRequest(UUID.randomUUID());
+		SessionID sessionID = new SessionID("FIX.4.2", "EXEC", "BANZAI");
+		Session.sendToTarget(quoteRequest, sessionID);
+
+		return ResponseEntity.ok("OK");
+
+	}
+
+	private QuoteRequest createQuoteRequest(UUID operationId) {
+		return new QuoteRequest(new QuoteReqID(operationId.toString()));
 	}
 }
