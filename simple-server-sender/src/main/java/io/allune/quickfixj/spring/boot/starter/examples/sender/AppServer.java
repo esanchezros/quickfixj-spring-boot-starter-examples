@@ -16,9 +16,20 @@
 
 package io.allune.quickfixj.spring.boot.starter.examples.sender;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
+import quickfix.Application;
+import quickfix.ApplicationAdapter;
+import quickfix.ConfigError;
+import quickfix.Initiator;
+import quickfix.LogFactory;
+import quickfix.MessageFactory;
+import quickfix.MessageStoreFactory;
+import quickfix.SessionSettings;
+import quickfix.ThreadedSocketInitiator;
 
 @EnableQuickFixJServer
 @SpringBootApplication
@@ -26,5 +37,28 @@ public class AppServer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppServer.class, args);
+	}
+
+	@Bean
+	public Application clientApplication() {
+		return new ApplicationAdapter();
+	}
+
+	@Bean
+	public Initiator clientInitiator(
+			quickfix.Application clientApplication,
+			MessageStoreFactory clientMessageStoreFactory,
+			SessionSettings clientSessionSettings,
+			LogFactory clientLogFactory,
+			MessageFactory clientMessageFactory
+	) throws ConfigError {
+
+		return new ThreadedSocketInitiator(
+				clientApplication,
+				clientMessageStoreFactory,
+				clientSessionSettings,
+				clientLogFactory,
+				clientMessageFactory
+		);
 	}
 }
