@@ -18,6 +18,7 @@ package io.allune.quickfixj.spring.boot.starter.examples.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import quickfix.Application;
 import quickfix.FieldNotFound;
 import quickfix.IncorrectTagValue;
