@@ -47,7 +47,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 
-		<skipDocker>false</skipDocker>
+		<skipDocker>true</skipDocker>
 		<docker.image.prefix>allune</docker.image.prefix>
 	</properties>
 
