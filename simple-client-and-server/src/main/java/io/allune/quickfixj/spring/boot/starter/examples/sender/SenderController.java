@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2017-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.allune.quickfixj.spring.boot.starter.examples.sender;
 
-import static java.util.UUID.randomUUID;
-import static org.springframework.http.HttpStatus.OK;
-import static quickfix.FixVersions.BEGINSTRING_FIX41;
-import static quickfix.FixVersions.BEGINSTRING_FIXT11;
-
-import java.util.HashMap;
-import java.util.Map;
+import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import quickfix.Acceptor;
 import quickfix.Initiator;
 import quickfix.Message;
@@ -40,6 +31,14 @@ import quickfix.field.QuoteID;
 import quickfix.field.Side;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.util.UUID.randomUUID;
+import static org.springframework.http.HttpStatus.OK;
+import static quickfix.FixVersions.BEGINSTRING_FIX41;
+import static quickfix.FixVersions.BEGINSTRING_FIXT11;
 
 @RestController
 public class SenderController {
