@@ -55,8 +55,8 @@ public class AppServer implements CommandLineRunner {
 
 	@Bean
 	public Acceptor serverAcceptor(quickfix.Application serverApplication, MessageStoreFactory serverMessageStoreFactory,
-			SessionSettings serverSessionSettings, LogFactory serverLogFactory,
-			MessageFactory serverMessageFactory) throws ConfigError {
+	                               SessionSettings serverSessionSettings, LogFactory serverLogFactory,
+	                               MessageFactory serverMessageFactory) throws ConfigError {
 
 		return new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
 				serverLogFactory, serverMessageFactory);

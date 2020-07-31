@@ -13,7 +13,7 @@ services:
     image: allune/simple-server
     container_name: quickfixj-spring-boot-server
     environment:
-      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n -Xmx512m -Xms512m"
       QUICKFIXJ_SERVER_CONFIG_FILE: "file:/opt/app/quickfixj-server.cfg"
     ports:
       - "9800:8000"
@@ -28,7 +28,7 @@ services:
     image: allune/simple-client
     container_name: quickfixj-spring-boot-client
     environment:
-      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n -Xmx512m -Xms512m"
       QUIICKFIXJ_CLIENT_CONFIG_FILE: "file:/opt/app/quickfixj-client.cfg"
     depends_on:
       quickfixj-spring-boot-server:
