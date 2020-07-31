@@ -54,9 +54,9 @@ public class SenderController {
 	private final Initiator clientInitiator;
 
 	public SenderController(QuickFixJTemplate serverQuickFixJTemplate,
-			Acceptor serverAcceptor,
-			QuickFixJTemplate clientQuickFixJTemplate,
-			Initiator clientInitiator) {
+	                        Acceptor serverAcceptor,
+	                        QuickFixJTemplate clientQuickFixJTemplate,
+	                        Initiator clientInitiator) {
 		this.serverQuickFixJTemplate = serverQuickFixJTemplate;
 		this.serverAcceptor = serverAcceptor;
 		this.clientQuickFixJTemplate = clientQuickFixJTemplate;

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>quickfixj-spring-boot-starter-examples</artifactId>
+        <groupId>io.allune</groupId>
+        <version>2.6.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>docker-server-client-with-database</artifactId>
+
+    <name>QuickFixJ Spring Boot Starter Examples :: Docker Server Client with Database</name>
+    <description>QuickFixJ Spring Boot Starter Docker Server and Client with Database</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.allune</groupId>
+            <artifactId>simple-server-with-database</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.allune</groupId>
+            <artifactId>simple-client-with-database</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>simple-server-database</alias>
+                            <name>${docker.image.prefix}/simple-server-database:latest</name>
+                            <build>
+                                <dockerFileDir>${basedir}/src/main/docker/server-database</dockerFileDir>
+                                <skip>${skipDocker}</skip>
+                                <assembly>
+                                    <inline>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <includes>
+                                                    <include>io.allune:simple-server-with-database</include>
+                                                </includes>
+                                                <outputDirectory>.</outputDirectory>
+                                                <outputFileNameMapping>simple-server-with-database.jar
+                                                </outputFileNameMapping>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                </assembly>
+                            </build>
+                        </image>
+                        <image>
+                            <alias>simple-client-database</alias>
+                            <name>${docker.image.prefix}/simple-client-database:latest</name>
+                            <build>
+                                <dockerFileDir>${basedir}/src/main/docker/client-database</dockerFileDir>
+                                <skip>${skipDocker}</skip>
+                                <assembly>
+                                    <inline>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <includes>
+                                                    <include>io.allune:simple-client-with-database</include>
+                                                </includes>
+                                                <outputDirectory>.</outputDirectory>
+                                                <outputFileNameMapping>simple-client-with-database.jar
+                                                </outputFileNameMapping>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build-container</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

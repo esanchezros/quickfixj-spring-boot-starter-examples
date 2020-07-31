@@ -50,6 +50,13 @@ import static quickfix.FixVersions.BEGINSTRING_FIXT11;
 public class SenderController {
 
 	private static final Map<String, Map<String, Message>> messageMap = createMessageMap();
+	private final QuickFixJTemplate quickFixJTemplate;
+	private final Acceptor serverAcceptor;
+
+	public SenderController(QuickFixJTemplate serverQuickFixJTemplate, Acceptor serverAcceptor) {
+		this.quickFixJTemplate = serverQuickFixJTemplate;
+		this.serverAcceptor = serverAcceptor;
+	}
 
 	private static HashMap<String, Map<String, Message>> createMessageMap() {
 		HashMap<String, Map<String, Message>> stringMapHashMap = new HashMap<>();
@@ -72,15 +79,6 @@ public class SenderController {
 		Map<String, Message> messageMap = new HashMap<>();
 		messageMap.put("Quote", new quickfix.fix50.Quote(new QuoteID("123")));
 		return messageMap;
-	}
-
-	private final QuickFixJTemplate quickFixJTemplate;
-
-	private final Acceptor serverAcceptor;
-
-	public SenderController(QuickFixJTemplate serverQuickFixJTemplate, Acceptor serverAcceptor) {
-		this.quickFixJTemplate = serverQuickFixJTemplate;
-		this.serverAcceptor = serverAcceptor;
 	}
 
 	@RequestMapping("/send-message")

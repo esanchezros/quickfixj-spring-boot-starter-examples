@@ -48,19 +48,19 @@ public class AppClient implements CommandLineRunner {
 	}
 
 	@Bean
-    public Application clientApplication(MessageCracker messageCracker) {
-        return new ClientApplicationAdapter(messageCracker);
-    }
+	public Application clientApplication(MessageCracker messageCracker) {
+		return new ClientApplicationAdapter(messageCracker);
+	}
 
-    @Bean
-    public MessageCracker messageCracker() {
-        return new ApplicationMessageCracker();
+	@Bean
+	public MessageCracker messageCracker() {
+		return new ApplicationMessageCracker();
 	}
 
 	@Bean
 	public Initiator clientInitiator(quickfix.Application clientApplication, MessageStoreFactory clientMessageStoreFactory,
-			SessionSettings clientSessionSettings, LogFactory clientLogFactory,
-			MessageFactory clientMessageFactory) throws ConfigError {
+	                                 SessionSettings clientSessionSettings, LogFactory clientLogFactory,
+	                                 MessageFactory clientMessageFactory) throws ConfigError {
 
 		return new ThreadedSocketInitiator(clientApplication, clientMessageStoreFactory, clientSessionSettings,
 				clientLogFactory, clientMessageFactory);

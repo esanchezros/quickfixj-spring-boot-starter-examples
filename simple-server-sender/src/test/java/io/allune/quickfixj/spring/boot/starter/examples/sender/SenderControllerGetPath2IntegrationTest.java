@@ -30,9 +30,9 @@ import static io.restassured.RestAssured.given;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SenderControllerGetPath2IntegrationTest {
 
-    @Test
-    public void canGetPath2() {
-        // @formatter:off
+	@Test
+	public void canGetPath2() {
+		// @formatter:off
         given()
                 .contentType("application/json")
                 .when()
@@ -41,5 +41,5 @@ public class SenderControllerGetPath2IntegrationTest {
                 .assertThat()
                 .statusCode(200);
         // @formatter:on
-    }
+	}
 }

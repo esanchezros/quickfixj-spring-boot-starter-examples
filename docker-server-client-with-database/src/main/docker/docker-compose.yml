@@ -1,0 +1,86 @@
+version: '2.1'
+services:
+
+  busybox:
+    image: busybox
+    depends_on:
+      mysqldb-server:
+        condition: service_healthy
+      mysqldb-client:
+        condition: service_healthy
+      quickfixj-spring-boot-server:
+        condition: service_healthy
+      quickfixj-spring-boot-client:
+        condition: service_healthy
+
+  quickfixj-spring-boot-server:
+    image: allune/simple-server-database
+    container_name: quickfixj-spring-boot-server
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n -Xmx512m -Xms512m -Dspring.profiles.active=docker"
+      QUICKFIXJ_SERVER_CONFIG_FILE: "file:/opt/app/quickfixj-server.cfg"
+    depends_on:
+      mysqldb-server:
+        condition: service_healthy
+    ports:
+      - "9800:8000"
+      - "9080:8080"
+    healthcheck:
+      test: "netstat -nl | grep -q 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
+
+  quickfixj-spring-boot-client:
+    image: allune/simple-client-database
+    container_name: quickfixj-spring-boot-client
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n -Xmx512m -Xms512m -Dspring.profiles.active=docker"
+      QUIICKFIXJ_CLIENT_CONFIG_FILE: "file:/opt/app/quickfixj-client.cfg"
+    depends_on:
+      quickfixj-spring-boot-server:
+        condition: service_healthy
+      mysqldb-client:
+        condition: service_healthy
+    ports:
+      - "9801:8000"
+      - "9081:8080"
+    healthcheck:
+      test: "netstat -natu | grep 'ESTABLISHED' | grep 9881"
+      interval: 6s
+      timeout: 3s
+      retries: 10
+
+  mysqldb-server:
+    image: mysql
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: quickfix
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testuser
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  mysqldb-client:
+    image: mysql
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: quickfix
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testuser
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10

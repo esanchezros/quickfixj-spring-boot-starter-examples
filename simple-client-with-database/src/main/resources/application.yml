@@ -1,0 +1,16 @@
+quickfixj:
+  client:
+    config: ${QUIICKFIXJ_CLIENT_CONFIG_FILE:classpath:quickfixj-client.cfg}
+    jmx-enabled: true
+
+server:
+  port: 8081
+
+management:
+  endpoint:
+    quickfixjclient:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: quickfixjclient
