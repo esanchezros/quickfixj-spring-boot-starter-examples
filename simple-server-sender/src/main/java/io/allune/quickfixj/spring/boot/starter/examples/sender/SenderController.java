@@ -23,19 +23,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import quickfix.Acceptor;
+import quickfix.Field;
 import quickfix.Message;
 import quickfix.Session;
 import quickfix.SessionID;
 import quickfix.SessionNotFound;
 import quickfix.StringField;
+import quickfix.field.AvgPx;
 import quickfix.field.ClOrdID;
+import quickfix.field.CumQty;
+import quickfix.field.ExecID;
+import quickfix.field.ExecType;
+import quickfix.field.LeavesQty;
+import quickfix.field.MarketSegmentID;
+import quickfix.field.OfferPx;
+import quickfix.field.OnBehalfOfCompID;
+import quickfix.field.OrdStatus;
+import quickfix.field.OrdType;
+import quickfix.field.OrderID;
+import quickfix.field.OrderQty;
 import quickfix.field.OrigClOrdID;
+import quickfix.field.Product;
 import quickfix.field.QuoteID;
 import quickfix.field.QuoteReqID;
+import quickfix.field.SettlDate;
+import quickfix.field.SettlType;
 import quickfix.field.Side;
+import quickfix.field.Spread;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
+import quickfix.field.TradePublishIndicator;
+import quickfix.field.TransactTime;
 import quickfix.fix42.QuoteRequest;
+import quickfix.fix44.ExecutionReport;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -114,6 +134,30 @@ public class SenderController {
 		return ResponseEntity.ok("OK");
 
 	}
+	
+	@GetMapping(path = "/execution-report")
+	public ResponseEntity<?> executionReport() throws SessionNotFound{
+		ExecutionReport executionReport = new ExecutionReport(new OrderID("3-2-805331618T-0-0"), new ExecID("3-2-805331618T-0-0"), new ExecType(ExecType.TRADE), 
+				new OrdStatus(OrdStatus.FILLED), new Side(Side.BUY), new LeavesQty(0), new CumQty(1000000), new AvgPx(5.57765));
+		SessionID sessionID = new SessionID("FIX.4.4", "EXEC", "BANZAI");
+		OnBehalfOfCompID onBehalfOfCompId = new OnBehalfOfCompID("FX");
+		executionReport.set(new TransactTime());
+		executionReport.set(new SettlType(SettlType.REGULAR_FX_SPOT_SETTLEMENT));
+		executionReport.set(new SettlDate("20201016"));
+		executionReport.set(new OrderQty(1000000));
+		executionReport.set(new Spread(0));
+		executionReport.set(new OrdType(OrdType.MARKET));
+		executionReport.set(new Product(Product.CURRENCY));
+//		executionReport.set(new TradePublishIndicator(TradePublishIndicator.DO_NOT_PUBLISH_TRADE));
+		executionReport.set(new ClOrdID("3-2-805331618T-0-0"));
+//		executionReport.set(new OfferPx(5.57765));
+		executionReport.set(new Symbol("USD/BRL"));
+		
+		
+		Session.sendToTarget(executionReport, sessionID);
+		return ResponseEntity.ok("OK");
+	}
+//	AllocationInstruction
 
 	private QuoteRequest createQuoteRequest(UUID operationId) {
 		return new QuoteRequest(new QuoteReqID(operationId.toString()));
