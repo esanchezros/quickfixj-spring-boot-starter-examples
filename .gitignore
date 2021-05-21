@@ -6,3 +6,5 @@
 **/.settings
 **/*.log
 /db/**
+/data/**
+/logs/**
