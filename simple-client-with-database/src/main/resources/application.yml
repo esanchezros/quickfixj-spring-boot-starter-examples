@@ -14,3 +14,10 @@ management:
     web:
       exposure:
         include: quickfixjclient
+
+logging:
+  file:
+    name: logs/client-with-database.log
+  pattern:
+    file: "%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:%5p} ${PID: } --- [%t] %-40.40logger{39} : %replace(%msg){'(\u0001)','|'}%n${LOG_EXCEPTION_CONVERSION_WORD:%rEx{5}}}"
+    console: "${CONSOLE_LOG_PATTERN:%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID: }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %replace(%msg){'(\u0001)','|'}%n${LOG_EXCEPTION_CONVERSION_WORD:%rEx{5}}}"
