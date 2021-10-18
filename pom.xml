@@ -54,7 +54,7 @@
 
         <skipDocker>true</skipDocker>
         <docker.image.prefix>allune</docker.image.prefix>
-        <quickfixj-spring-boot-starter.version>2.9.0</quickfixj-spring-boot-starter.version>
+        <quickfixj-spring-boot-starter.version>2.10.0</quickfixj-spring-boot-starter.version>
     </properties>
 
     <dependencyManagement>
