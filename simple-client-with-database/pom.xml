@@ -24,11 +24,23 @@
         <dependency>
             <groupId>io.allune</groupId>
             <artifactId>quickfixj-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>proxool</groupId>
+                    <artifactId>proxool</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>io.allune</groupId>
             <artifactId>quickfixj-spring-boot-actuator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>proxool</groupId>
+                    <artifactId>proxool</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

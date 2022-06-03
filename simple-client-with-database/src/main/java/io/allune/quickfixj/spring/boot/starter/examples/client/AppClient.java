@@ -31,6 +31,8 @@ import quickfix.MessageStoreFactory;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketInitiator;
 
+import javax.sql.DataSource;
+
 @Slf4j
 @EnableQuickFixJClient
 @SpringBootApplication
@@ -55,12 +57,16 @@ public class AppClient {
 	}
 
 	@Bean
-	public MessageStoreFactory clientMessageStoreFactory(SessionSettings clientSessionSettings) {
-		return new JdbcStoreFactory(clientSessionSettings);
+	public MessageStoreFactory clientMessageStoreFactory(SessionSettings clientSessionSettings, DataSource dataSource) {
+		JdbcStoreFactory jdbcStoreFactory = new JdbcStoreFactory(clientSessionSettings);
+		jdbcStoreFactory.setDataSource(dataSource);
+		return jdbcStoreFactory;
 	}
 
 	@Bean
-	public LogFactory clientLogFactory(SessionSettings clientSessionSettings) {
-		return new JdbcLogFactory(clientSessionSettings);
+	public LogFactory clientLogFactory(SessionSettings clientSessionSettings, DataSource dataSource) {
+		JdbcLogFactory jdbcLogFactory = new JdbcLogFactory(clientSessionSettings);
+		jdbcLogFactory.setDataSource(dataSource);
+		return jdbcLogFactory;
 	}
 }
