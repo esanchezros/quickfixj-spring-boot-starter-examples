@@ -16,6 +16,7 @@
 package io.allune.quickfixj.spring.boot.starter.examples.server;
 
 import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,9 @@ import quickfix.MessageStoreFactory;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketAcceptor;
 
+import javax.sql.DataSource;
+
+@Slf4j
 @EnableQuickFixJServer
 @SpringBootApplication
 public class AppServer {
@@ -53,12 +57,16 @@ public class AppServer {
 	}
 
 	@Bean
-	public MessageStoreFactory serverMessageStoreFactory(SessionSettings serverSessionSettings) {
-		return new JdbcStoreFactory(serverSessionSettings);
+	public MessageStoreFactory serverMessageStoreFactory(SessionSettings serverSessionSettings, DataSource dataSource) {
+		JdbcStoreFactory jdbcStoreFactory = new JdbcStoreFactory(serverSessionSettings);
+		jdbcStoreFactory.setDataSource(dataSource);
+		return jdbcStoreFactory;
 	}
 
 	@Bean
-	public LogFactory serverLogFactory(SessionSettings serverSessionSettings) {
-		return new JdbcLogFactory(serverSessionSettings);
+	public LogFactory serverLogFactory(SessionSettings serverSessionSettings, DataSource dataSource) {
+		JdbcLogFactory jdbcLogFactory = new JdbcLogFactory(serverSessionSettings);
+		jdbcLogFactory.setDataSource(dataSource);
+		return jdbcLogFactory;
 	}
 }
