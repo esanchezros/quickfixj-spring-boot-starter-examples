@@ -45,21 +45,18 @@ public class SenderController {
 
 	private static final Map<String, Map<String, Message>> messageMap = createMessageMap();
 
-	private final QuickFixJTemplate serverQuickFixJTemplate;
-
 	private final Acceptor serverAcceptor;
 
-	private final QuickFixJTemplate clientQuickFixJTemplate;
+	private final QuickFixJTemplate quickFixJTemplate;
 
 	private final Initiator clientInitiator;
 
-	public SenderController(QuickFixJTemplate serverQuickFixJTemplate,
-	                        Acceptor serverAcceptor,
-	                        QuickFixJTemplate clientQuickFixJTemplate,
-	                        Initiator clientInitiator) {
-		this.serverQuickFixJTemplate = serverQuickFixJTemplate;
+	public SenderController(
+			Acceptor serverAcceptor,
+			QuickFixJTemplate quickFixJTemplate,
+			Initiator clientInitiator) {
 		this.serverAcceptor = serverAcceptor;
-		this.clientQuickFixJTemplate = clientQuickFixJTemplate;
+		this.quickFixJTemplate = quickFixJTemplate;
 		this.clientInitiator = clientInitiator;
 	}
 
@@ -97,7 +94,7 @@ public class SenderController {
 				.filter(id -> id.getBeginString().equals(fixVersion))
 				.findFirst()
 				.orElseThrow(RuntimeException::new);
-		serverQuickFixJTemplate.send(message, sessionID);
+		quickFixJTemplate.send(message, sessionID);
 	}
 
 	@RequestMapping("/send-server-message")
@@ -112,6 +109,6 @@ public class SenderController {
 				.filter(id -> id.getBeginString().equals(fixVersion))
 				.findFirst()
 				.orElseThrow(RuntimeException::new);
-		clientQuickFixJTemplate.send(message, sessionID);
+		quickFixJTemplate.send(message, sessionID);
 	}
 }
