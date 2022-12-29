@@ -9,8 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>simple-client-and-server-config-string</artifactId>
-    <name>QuickFixJ Spring Boot Starter Examples :: Simple Client and Server</name>
-    <description>QuickFixJ Spring Boot Starter Simple Client and Server</description>
+    <name>QuickFixJ Spring Boot Starter Examples :: Simple Client and Server using Config String</name>
+    <description>QuickFixJ Spring Boot Starter Simple Client and Server using Config String</description>
 
     <dependencies>
         <dependency>
