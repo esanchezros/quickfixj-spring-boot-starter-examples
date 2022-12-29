@@ -22,6 +22,7 @@
         <module>simple-client-listener</module>
         <module>simple-client-with-database</module>
         <module>simple-client-and-server</module>
+        <module>simple-client-and-server-config-string</module>
         <module>simple-server</module>
         <module>simple-server-listener</module>
         <module>simple-server-sender</module>

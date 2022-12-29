@@ -1,0 +1,57 @@
+server:
+  port: 8089
+
+
+management:
+  endpoint:
+    quickfixjclient:
+      enabled: true
+    quickfixjserver:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: quickfixjclient,quickfixjserver
+
+logging:
+  file:
+    name: logs/client-and-server.log
+  pattern:
+    file: "%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:%5p} ${PID: } --- [%t] %-40.40logger{39} : %replace(%msg){'(\u0001)','|'}%n${LOG_EXCEPTION_CONVERSION_WORD:%rEx{5}}}"
+    console: "${CONSOLE_LOG_PATTERN:%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID: }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %replace(%msg){'(\u0001)','|'}%n${LOG_EXCEPTION_CONVERSION_WORD:%rEx{5}}}"
+
+quickfixj:
+  client:
+    configString: |
+      [default]
+      FileStorePath=target/data/initiator
+      ConnectionType=initiator
+      SenderCompID=BANZAI
+      TargetCompID=EXEC
+      SocketConnectHost=localhost
+      StartTime=00:00:00
+      EndTime=00:00:00
+      HeartBtInt=5
+      ReconnectInterval=5
+      FileLogPath=logs-client
+
+      [session]
+      BeginString=FIX.4.1
+      SocketConnectPort=9877
+
+  server:
+    configString: |
+      [default]
+      FileStorePath=target/data/acceptor
+      ConnectionType=acceptor
+      SenderCompID=EXEC
+      TargetCompID=BANZAI
+      StartTime=00:00:00
+      EndTime=00:00:00
+      HeartBtInt=5
+      ReconnectInterval=5
+      FileLogPath=logs-server
+
+      [session]
+      BeginString=FIX.4.1
+      SocketAcceptPort=9877
