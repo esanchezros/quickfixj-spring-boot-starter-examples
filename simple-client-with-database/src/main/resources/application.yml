@@ -1,3 +1,7 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
 quickfixj:
   client:
     config: ${QUIICKFIXJ_CLIENT_CONFIG_FILE:classpath:quickfixj-client.cfg}
