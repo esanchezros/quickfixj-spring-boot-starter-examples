@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
-	</parent>
-
 	<groupId>io.allune</groupId>
 	<artifactId>quickfixj-spring-boot-starter-examples</artifactId>
 	<version>2.15.1-SNAPSHOT</version>
@@ -19,11 +13,13 @@
 
 	<modules>
 		<module>simple-client</module>
+		<module>simple-client-spring-3</module>
 		<module>simple-client-listener</module>
 		<module>simple-client-with-database</module>
 		<module>simple-client-and-server</module>
 		<module>simple-client-and-server-config-string</module>
 		<module>simple-server</module>
+		<module>simple-server-spring-3</module>
 		<module>simple-server-listener</module>
 		<module>simple-server-sender</module>
 		<module>simple-server-with-database</module>
@@ -55,11 +51,20 @@
 
 		<skipDocker>true</skipDocker>
 		<docker.image.prefix>allune</docker.image.prefix>
-		<quickfixj-spring-boot-starter.version>2.15.0</quickfixj-spring-boot-starter.version>
+		<quickfixj-spring-boot-starter.version>2.15.3</quickfixj-spring-boot-starter.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- Spring Boot -->
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.5.14</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>io.allune</groupId>
 				<artifactId>quickfixj-spring-boot-starter</artifactId>
