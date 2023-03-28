@@ -107,7 +107,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.8</version>
+				<version>1.6.13</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -118,18 +118,19 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>3.0</version>
+				<version>4.1</version>
 				<configuration>
 					<!-- Template location -->
 					<header>licence-header.txt</header>
 					<properties>
 						<!-- Values to be substituted in template -->
 						<inceptionYear>2017</inceptionYear>
-						<currentYear>2020</currentYear>
+						<currentYear>2023</currentYear>
 					</properties>
 					<strictCheck>true</strictCheck>
 					<includes>
 						<include>src/**/*.java</include>
+						<include>src/**/pom.xml</include>
 					</includes>
 					<mapping>
 						<java>SLASHSTAR_STYLE</java>
@@ -150,7 +151,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
+					<version>3.10.1</version>
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
@@ -195,7 +196,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
+						<version>3.0.1</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -209,7 +210,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>3.0.1</version>
+						<version>3.2.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -222,7 +223,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.4</version>
+						<version>3.4.1</version>
 						<executions>
 							<execution>
 								<id>attach-javadocs</id>

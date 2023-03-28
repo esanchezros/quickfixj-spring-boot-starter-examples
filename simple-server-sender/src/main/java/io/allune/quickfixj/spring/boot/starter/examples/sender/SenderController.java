@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 the original author or authors.
+ * Copyright 2017-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import quickfix.Acceptor;
-import quickfix.Field;
 import quickfix.Message;
 import quickfix.Session;
 import quickfix.SessionID;
@@ -35,8 +34,6 @@ import quickfix.field.CumQty;
 import quickfix.field.ExecID;
 import quickfix.field.ExecType;
 import quickfix.field.LeavesQty;
-import quickfix.field.MarketSegmentID;
-import quickfix.field.OfferPx;
 import quickfix.field.OnBehalfOfCompID;
 import quickfix.field.OrdStatus;
 import quickfix.field.OrdType;
@@ -52,7 +49,6 @@ import quickfix.field.Side;
 import quickfix.field.Spread;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
-import quickfix.field.TradePublishIndicator;
 import quickfix.field.TransactTime;
 import quickfix.fix42.QuoteRequest;
 import quickfix.fix44.ExecutionReport;
@@ -134,10 +130,10 @@ public class SenderController {
 		return ResponseEntity.ok("OK");
 
 	}
-	
+
 	@GetMapping(path = "/execution-report")
 	public ResponseEntity<?> executionReport() throws SessionNotFound{
-		ExecutionReport executionReport = new ExecutionReport(new OrderID("3-2-805331618T-0-0"), new ExecID("3-2-805331618T-0-0"), new ExecType(ExecType.TRADE), 
+		ExecutionReport executionReport = new ExecutionReport(new OrderID("3-2-805331618T-0-0"), new ExecID("3-2-805331618T-0-0"), new ExecType(ExecType.TRADE),
 				new OrdStatus(OrdStatus.FILLED), new Side(Side.BUY), new LeavesQty(0), new CumQty(1000000), new AvgPx(5.57765));
 		SessionID sessionID = new SessionID("FIX.4.4", "EXEC", "BANZAI");
 		OnBehalfOfCompID onBehalfOfCompId = new OnBehalfOfCompID("FX");
@@ -152,8 +148,8 @@ public class SenderController {
 		executionReport.set(new ClOrdID("3-2-805331618T-0-0"));
 //		executionReport.set(new OfferPx(5.57765));
 		executionReport.set(new Symbol("USD/BRL"));
-		
-		
+
+
 		Session.sendToTarget(executionReport, sessionID);
 		return ResponseEntity.ok("OK");
 	}
