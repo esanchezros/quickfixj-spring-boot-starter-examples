@@ -16,36 +16,30 @@
 package io.allune.quickfixj.spring.boot.starter.examples.server;
 
 import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import quickfix.Acceptor;
 import quickfix.Application;
 import quickfix.ConfigError;
-import quickfix.FileLogFactory;
-import quickfix.FileStoreFactory;
+import quickfix.JdbcLogFactory;
+import quickfix.JdbcStoreFactory;
 import quickfix.LogFactory;
 import quickfix.MessageFactory;
 import quickfix.MessageStoreFactory;
-import quickfix.SessionID;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketAcceptor;
-import quickfix.mina.acceptor.DynamicAcceptorSessionProvider;
 
-import java.net.InetSocketAddress;
+import javax.sql.DataSource;
 
-import static quickfix.Acceptor.SETTING_ACCEPTOR_TEMPLATE;
-import static quickfix.FixVersions.BEGINSTRING_FIX40;
-import static quickfix.FixVersions.BEGINSTRING_FIX44;
-import static quickfix.SessionSettings.BEGINSTRING;
-import static quickfix.mina.acceptor.DynamicAcceptorSessionProvider.WILDCARD;
-
+@Slf4j
 @EnableQuickFixJServer
 @SpringBootApplication
-public class AppServer {
+public class SimpleServerWithDatabase {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppServer.class, args);
+		SpringApplication.run(SimpleServerWithDatabase.class, args);
 	}
 
 	@Bean
@@ -58,27 +52,21 @@ public class AppServer {
 	                               SessionSettings serverSessionSettings, LogFactory serverLogFactory,
 	                               MessageFactory serverMessageFactory) throws ConfigError {
 
-		ThreadedSocketAcceptor threadedSocketAcceptor = new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
+		return new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
 				serverLogFactory, serverMessageFactory);
-
-		final SessionID anySession = new SessionID(BEGINSTRING_FIX40, WILDCARD, WILDCARD);
-		serverSessionSettings.setBool(anySession, SETTING_ACCEPTOR_TEMPLATE, true);
-		serverSessionSettings.setString(anySession, BEGINSTRING, BEGINSTRING_FIX44);
-		threadedSocketAcceptor.setSessionProvider(
-				new InetSocketAddress("0.0.0.0", 9876),
-				new DynamicAcceptorSessionProvider(serverSessionSettings, anySession, serverApplication, serverMessageStoreFactory,
-						serverLogFactory, serverMessageFactory)
-		);
-		return threadedSocketAcceptor;
 	}
 
 	@Bean
-	public MessageStoreFactory serverMessageStoreFactory(SessionSettings serverSessionSettings) {
-		return new FileStoreFactory(serverSessionSettings);
+	public MessageStoreFactory serverMessageStoreFactory(SessionSettings serverSessionSettings, DataSource dataSource) {
+		JdbcStoreFactory jdbcStoreFactory = new JdbcStoreFactory(serverSessionSettings);
+		jdbcStoreFactory.setDataSource(dataSource);
+		return jdbcStoreFactory;
 	}
 
 	@Bean
-	public LogFactory serverLogFactory(SessionSettings serverSessionSettings) {
-		return new FileLogFactory(serverSessionSettings);
+	public LogFactory serverLogFactory(SessionSettings serverSessionSettings, DataSource dataSource) {
+		JdbcLogFactory jdbcLogFactory = new JdbcLogFactory(serverSessionSettings);
+		jdbcLogFactory.setDataSource(dataSource);
+		return jdbcLogFactory;
 	}
 }

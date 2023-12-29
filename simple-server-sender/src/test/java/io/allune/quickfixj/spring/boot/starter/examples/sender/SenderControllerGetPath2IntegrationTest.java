@@ -22,7 +22,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import static io.restassured.RestAssured.given;
 
-@ContextConfiguration(classes = AppServer.class)
+@ContextConfiguration(classes = SimpleServerSender.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SenderControllerGetPath2IntegrationTest {

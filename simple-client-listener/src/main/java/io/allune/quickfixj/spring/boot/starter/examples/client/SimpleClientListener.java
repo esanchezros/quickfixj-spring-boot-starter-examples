@@ -23,9 +23,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @EnableQuickFixJClient
 @SpringBootApplication
-public class AppClient {
+public class SimpleClientListener {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppClient.class, args);
+		SpringApplication.run(SimpleClientListener.class, args);
 	}
 }

@@ -31,10 +31,10 @@ import quickfix.ThreadedSocketAcceptor;
 
 @EnableQuickFixJServer
 @SpringBootApplication
-public class AppServer {
+public class SimpleServer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppServer.class, args);
+		SpringApplication.run(SimpleServer.class, args);
 	}
 
 	@Bean

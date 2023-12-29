@@ -23,9 +23,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @EnableQuickFixJServer
 @SpringBootApplication
-public class AppServer {
+public class SimpleServerListener {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppServer.class, args);
+		SpringApplication.run(SimpleServerListener.class, args);
 	}
 }

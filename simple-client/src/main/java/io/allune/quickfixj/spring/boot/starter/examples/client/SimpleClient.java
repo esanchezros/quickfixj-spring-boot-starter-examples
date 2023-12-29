@@ -34,10 +34,10 @@ import quickfix.fix41.MessageCracker;
 @Slf4j
 @EnableQuickFixJClient
 @SpringBootApplication
-public class AppClient {
+public class SimpleClient {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppClient.class, args);
+		SpringApplication.run(SimpleClient.class, args);
 	}
 
 	@Bean

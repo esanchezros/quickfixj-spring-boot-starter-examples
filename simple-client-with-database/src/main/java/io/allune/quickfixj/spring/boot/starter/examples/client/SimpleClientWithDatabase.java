@@ -36,10 +36,10 @@ import javax.sql.DataSource;
 @Slf4j
 @EnableQuickFixJClient
 @SpringBootApplication
-public class AppClient {
+public class SimpleClientWithDatabase {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppClient.class, args);
+		SpringApplication.run(SimpleClientWithDatabase.class, args);
 	}
 
 	@Bean

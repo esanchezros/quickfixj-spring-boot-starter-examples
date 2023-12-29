@@ -23,18 +23,29 @@ import quickfix.Acceptor;
 import quickfix.Application;
 import quickfix.ConfigError;
 import quickfix.FileLogFactory;
+import quickfix.FileStoreFactory;
 import quickfix.LogFactory;
 import quickfix.MessageFactory;
 import quickfix.MessageStoreFactory;
+import quickfix.SessionID;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketAcceptor;
+import quickfix.mina.acceptor.DynamicAcceptorSessionProvider;
+
+import java.net.InetSocketAddress;
+
+import static quickfix.Acceptor.SETTING_ACCEPTOR_TEMPLATE;
+import static quickfix.FixVersions.BEGINSTRING_FIX40;
+import static quickfix.FixVersions.BEGINSTRING_FIX44;
+import static quickfix.SessionSettings.BEGINSTRING;
+import static quickfix.mina.acceptor.DynamicAcceptorSessionProvider.WILDCARD;
 
 @EnableQuickFixJServer
 @SpringBootApplication
-public class AppServer {
+public class SimpleServerDynamicSessions {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppServer.class, args);
+		SpringApplication.run(SimpleServerDynamicSessions.class, args);
 	}
 
 	@Bean
@@ -47,8 +58,23 @@ public class AppServer {
 	                               SessionSettings serverSessionSettings, LogFactory serverLogFactory,
 	                               MessageFactory serverMessageFactory) throws ConfigError {
 
-		return new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
+		ThreadedSocketAcceptor threadedSocketAcceptor = new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
 				serverLogFactory, serverMessageFactory);
+
+		final SessionID anySession = new SessionID(BEGINSTRING_FIX40, WILDCARD, WILDCARD);
+		serverSessionSettings.setBool(anySession, SETTING_ACCEPTOR_TEMPLATE, true);
+		serverSessionSettings.setString(anySession, BEGINSTRING, BEGINSTRING_FIX44);
+		threadedSocketAcceptor.setSessionProvider(
+				new InetSocketAddress("0.0.0.0", 9876),
+				new DynamicAcceptorSessionProvider(serverSessionSettings, anySession, serverApplication, serverMessageStoreFactory,
+						serverLogFactory, serverMessageFactory)
+		);
+		return threadedSocketAcceptor;
+	}
+
+	@Bean
+	public MessageStoreFactory serverMessageStoreFactory(SessionSettings serverSessionSettings) {
+		return new FileStoreFactory(serverSessionSettings);
 	}
 
 	@Bean

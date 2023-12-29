@@ -23,9 +23,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableQuickFixJServer
 @EnableQuickFixJClient
 @SpringBootApplication
-public class AppServer {
+public class SimpleClientAndServerConfigString {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppServer.class, args);
+		SpringApplication.run(SimpleClientAndServerConfigString.class, args);
 	}
 }

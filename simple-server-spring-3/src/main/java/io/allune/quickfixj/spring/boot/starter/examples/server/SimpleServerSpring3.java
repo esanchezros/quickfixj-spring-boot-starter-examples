@@ -13,50 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.allune.quickfixj.spring.boot.starter.examples.sender;
+package io.allune.quickfixj.spring.boot.starter.examples.server;
 
 import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import quickfix.Acceptor;
 import quickfix.Application;
-import quickfix.ApplicationAdapter;
 import quickfix.ConfigError;
-import quickfix.Initiator;
+import quickfix.FileLogFactory;
 import quickfix.LogFactory;
 import quickfix.MessageFactory;
 import quickfix.MessageStoreFactory;
 import quickfix.SessionSettings;
-import quickfix.ThreadedSocketInitiator;
+import quickfix.ThreadedSocketAcceptor;
 
 @EnableQuickFixJServer
 @SpringBootApplication
-public class AppServer {
+public class SimpleServerSpring3 {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppServer.class, args);
+		SpringApplication.run(SimpleServerSpring3.class, args);
 	}
 
 	@Bean
-	public Application clientApplication() {
-		return new ApplicationAdapter();
+	public Application serverApplication() {
+		return new ServerApplicationAdapter();
 	}
 
 	@Bean
-	public Initiator clientInitiator(
-			quickfix.Application clientApplication,
-			MessageStoreFactory clientMessageStoreFactory,
-			SessionSettings clientSessionSettings,
-			LogFactory clientLogFactory,
-			MessageFactory clientMessageFactory
-	) throws ConfigError {
+	public Acceptor serverAcceptor(quickfix.Application serverApplication, MessageStoreFactory serverMessageStoreFactory,
+	                               SessionSettings serverSessionSettings, LogFactory serverLogFactory,
+	                               MessageFactory serverMessageFactory) throws ConfigError {
 
-		return new ThreadedSocketInitiator(
-				clientApplication,
-				clientMessageStoreFactory,
-				clientSessionSettings,
-				clientLogFactory,
-				clientMessageFactory
-		);
+		return new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
+				serverLogFactory, serverMessageFactory);
+	}
+
+	@Bean
+	public LogFactory serverLogFactory(SessionSettings serverSessionSettings) {
+		return new FileLogFactory(serverSessionSettings);
 	}
 }
