@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
-		<groupId>io.allune</groupId>
 		<artifactId>quickfixj-spring-boot-starter-examples</artifactId>
+		<groupId>io.allune</groupId>
 		<version>2.17.1-SNAPSHOT</version>
 	</parent>
+	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>simple-server-spring-3</artifactId>
-	<packaging>jar</packaging>
-
-	<name>QuickFixJ Spring Boot Starter Examples :: Simple Server Spring 3</name>
-	<description>QuickFixJ Spring Boot Starter Server Spring 3</description>
+	<artifactId>simple-client-and-server-spring-3</artifactId>
+	<name>QuickFixJ Spring Boot Starter Examples :: Simple Client and Server Spring 3</name>
+	<description>QuickFixJ Spring Boot Starter Simple Client and Server Spring 3</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,6 +32,7 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- QuickFix/J Spring Boot starter -->
 		<dependency>
 			<groupId>io.allune</groupId>
 			<artifactId>quickfixj-spring-boot-starter</artifactId>
@@ -54,6 +52,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 
