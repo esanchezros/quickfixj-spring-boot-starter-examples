@@ -12,12 +12,17 @@ server:
 
 management:
   endpoint:
+    health:
+      show-details: always
+    quickfixjserver:
+      enabled: true
+  health:
     quickfixjserver:
       enabled: true
   endpoints:
     web:
       exposure:
-        include: quickfixjserver
+        include: quickfixjserver,health
 
 logging:
   file:
