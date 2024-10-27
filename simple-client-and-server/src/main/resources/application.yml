@@ -1,17 +1,3 @@
-server:
-  port: 8089
-
-management:
-  endpoint:
-    quickfixjclient:
-      enabled: true
-    quickfixjserver:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: quickfixjclient,quickfixjserver
-
 logging:
   file:
     name: logs/client-and-server.log

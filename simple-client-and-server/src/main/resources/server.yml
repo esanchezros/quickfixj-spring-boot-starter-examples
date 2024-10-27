@@ -1,0 +1,15 @@
+server:
+  port: 8076
+quickfixj:
+  server:
+    enabled: true
+    autoStartup: true
+    config: classpath:quickfixj-server.cfg
+management:
+  endpoint:
+    quickfixjserver:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: quickfixjserver

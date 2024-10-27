@@ -4,6 +4,7 @@ spring:
 
 quickfixj:
   client:
+    enabled: true
     config: ${QUIICKFIXJ_CLIENT_CONFIG_FILE:classpath:quickfixj-client.cfg}
     jmx-enabled: true
 

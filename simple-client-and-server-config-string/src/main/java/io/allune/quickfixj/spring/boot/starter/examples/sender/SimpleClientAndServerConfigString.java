@@ -15,17 +15,48 @@
  */
 package io.allune.quickfixj.spring.boot.starter.examples.sender;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.allune.quickfixj.spring.boot.starter.examples.sender.config.ApplicationContextConfiguration;
+import io.allune.quickfixj.spring.boot.starter.examples.sender.controller.SenderController;
+import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@EnableQuickFixJServer
-@EnableQuickFixJClient
-@SpringBootApplication
 public class SimpleClientAndServerConfigString {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SimpleClientAndServerConfigString.class, args);
+		SpringApplicationBuilder parentBuilder
+				= new SpringApplicationBuilder(ApplicationContextConfiguration.class)
+				.web(WebApplicationType.NONE);
+		parentBuilder.run(args);
+
+		parentBuilder.child(QuickFixJClientContextConfiguration.class)
+				.properties("spring.config.name=client")
+				.web(WebApplicationType.SERVLET).run(args);
+		parentBuilder.child(QuickFixJServerContextConfiguration.class)
+				.properties("spring.config.name=server")
+				.web(WebApplicationType.SERVLET).run(args);
+	}
+
+	@EnableAutoConfiguration
+	@Configuration
+	public static class QuickFixJClientContextConfiguration {
+		// override beans if required
+		@Bean
+		public SenderController senderController(QuickFixJTemplate quickFixJTemplate) {
+			return new SenderController(quickFixJTemplate);
+		}
+	}
+
+	@EnableAutoConfiguration
+	@Configuration
+	public static class QuickFixJServerContextConfiguration {
+		// override beans if required
+		@Bean
+		public SenderController senderController(QuickFixJTemplate quickFixJTemplate) {
+			return new SenderController(quickFixJTemplate);
+		}
 	}
 }
