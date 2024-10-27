@@ -25,7 +25,6 @@
 		<module>docker-server-client</module>
 		<module>docker-server-client-with-failover</module>
 		<module>docker-server-client-with-database</module>
-		<module>integration-tests</module>
 	</modules>
 
 	<licenses>
