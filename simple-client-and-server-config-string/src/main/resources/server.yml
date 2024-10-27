@@ -1,0 +1,34 @@
+server:
+  port: 8076
+quickfixj:
+  server:
+    enabled: true
+    autoStartup: true
+    configString: |
+      [default]
+      FileStorePath=target/data/acceptor
+      ConnectionType=acceptor
+      SenderCompID=EXEC
+      TargetCompID=BANZAI
+      StartTime=00:00:00
+      EndTime=00:00:00
+      HeartBtInt=5
+      ReconnectInterval=5
+      FileLogPath=logs-server
+
+      [session]
+      BeginString=FIX.4.1
+      SocketAcceptPort=9877
+      
+      [session]
+      BeginString=FIXT.1.1
+      DefaultApplVerID=FIX.5.0SP2
+      SocketAcceptPort=9877
+management:
+  endpoint:
+    quickfixjserver:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: quickfixjserver

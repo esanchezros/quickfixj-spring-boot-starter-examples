@@ -15,7 +15,6 @@
  */
 package io.allune.quickfixj.spring.boot.starter.examples.server;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +28,6 @@ import quickfix.MessageStoreFactory;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketAcceptor;
 
-@EnableQuickFixJServer
 @SpringBootApplication
 public class SimpleServer {
 
@@ -43,9 +41,13 @@ public class SimpleServer {
 	}
 
 	@Bean
-	public Acceptor serverAcceptor(quickfix.Application serverApplication, MessageStoreFactory serverMessageStoreFactory,
-	                               SessionSettings serverSessionSettings, LogFactory serverLogFactory,
-	                               MessageFactory serverMessageFactory) throws ConfigError {
+	public Acceptor serverAcceptor(
+			quickfix.Application serverApplication,
+			MessageStoreFactory serverMessageStoreFactory,
+			SessionSettings serverSessionSettings,
+			LogFactory serverLogFactory,
+			MessageFactory serverMessageFactory
+	) throws ConfigError {
 
 		return new ThreadedSocketAcceptor(serverApplication, serverMessageStoreFactory, serverSessionSettings,
 				serverLogFactory, serverMessageFactory);

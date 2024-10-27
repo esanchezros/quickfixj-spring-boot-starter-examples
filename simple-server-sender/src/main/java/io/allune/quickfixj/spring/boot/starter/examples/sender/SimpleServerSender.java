@@ -15,7 +15,6 @@
  */
 package io.allune.quickfixj.spring.boot.starter.examples.sender;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +28,6 @@ import quickfix.MessageStoreFactory;
 import quickfix.SessionSettings;
 import quickfix.ThreadedSocketInitiator;
 
-@EnableQuickFixJServer
 @SpringBootApplication
 public class SimpleServerSender {
 

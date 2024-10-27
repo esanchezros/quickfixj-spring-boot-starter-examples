@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.allune.quickfixj.spring.boot.starter.examples.sender;
+package io.allune.quickfixj.spring.boot.starter.examples.sender.config;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJServer;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 
-@EnableQuickFixJServer
-@EnableQuickFixJClient
-@SpringBootApplication
-public class SimpleClientAndServer {
+@Configuration
+public class ApplicationContextConfiguration {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SimpleClientAndServer.class, args);
-	}
 }

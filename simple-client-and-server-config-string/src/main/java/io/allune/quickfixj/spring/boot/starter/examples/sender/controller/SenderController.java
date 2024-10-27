@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.allune.quickfixj.spring.boot.starter.examples.sender;
+package io.allune.quickfixj.spring.boot.starter.examples.sender.controller;
 
 import io.allune.quickfixj.spring.boot.starter.template.QuickFixJTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import quickfix.Acceptor;
-import quickfix.Initiator;
 import quickfix.Message;
 import quickfix.SessionID;
 import quickfix.StringField;
@@ -40,30 +37,37 @@ import static org.springframework.http.HttpStatus.OK;
 import static quickfix.FixVersions.BEGINSTRING_FIX41;
 import static quickfix.FixVersions.BEGINSTRING_FIXT11;
 
-@RestController
-public class SenderController {
+@RequestMapping
+public class SenderController implements IController {
 
 	private static final Map<String, Map<String, Message>> messageMap = createMessageMap();
-
-	private final Acceptor serverAcceptor;
+	private static final Map<String, SessionID> serverSessionIDMap = createServerSessionIDMap();
+	private static final Map<String, SessionID> clientSessionIDMap = createClientSessionIDMap();
 
 	private final QuickFixJTemplate quickFixJTemplate;
 
-	private final Initiator clientInitiator;
-
-	public SenderController(
-			Acceptor serverAcceptor,
-			QuickFixJTemplate quickFixJTemplate,
-			Initiator clientInitiator) {
-		this.serverAcceptor = serverAcceptor;
+	public SenderController(QuickFixJTemplate quickFixJTemplate) {
 		this.quickFixJTemplate = quickFixJTemplate;
-		this.clientInitiator = clientInitiator;
 	}
 
-	private static HashMap<String, Map<String, Message>> createMessageMap() {
+	private static Map<String, Map<String, Message>> createMessageMap() {
 		HashMap<String, Map<String, Message>> stringMapHashMap = new HashMap<>();
 		stringMapHashMap.put(BEGINSTRING_FIX41, initialiseFix41MessageMap());
 		stringMapHashMap.put(BEGINSTRING_FIXT11, initialiseFix50MessageMap());
+		return stringMapHashMap;
+	}
+
+	private static Map<String, SessionID> createServerSessionIDMap() {
+		HashMap<String, SessionID> stringMapHashMap = new HashMap<>();
+		stringMapHashMap.put(BEGINSTRING_FIX41, new SessionID(BEGINSTRING_FIX41, "EXEC", "BANZAI"));
+		stringMapHashMap.put(BEGINSTRING_FIXT11, new SessionID(BEGINSTRING_FIXT11, "EXEC", "BANZAI"));
+		return stringMapHashMap;
+	}
+
+	private static Map<String, SessionID> createClientSessionIDMap() {
+		HashMap<String, SessionID> stringMapHashMap = new HashMap<>();
+		stringMapHashMap.put(BEGINSTRING_FIX41, new SessionID(BEGINSTRING_FIX41, "BANZAI", "EXEC"));
+		stringMapHashMap.put(BEGINSTRING_FIXT11, new SessionID(BEGINSTRING_FIXT11, "BANZAI", "EXEC"));
 		return stringMapHashMap;
 	}
 
@@ -85,30 +89,30 @@ public class SenderController {
 
 	@RequestMapping("/send-client-message")
 	@ResponseStatus(OK)
-	public void sendMessageToClient(@RequestParam String fixVersion, @RequestParam String messageType) {
+	public void sendMessageToClient(
+			@RequestParam(name = "fixVersion") String fixVersion,
+			@RequestParam(name = "messageType") String messageType
+	) {
 		Map<String, Message> stringMessageMap = messageMap.get(fixVersion);
 		Message message = stringMessageMap.get(messageType);
-		message.setField(new StringField(Text.FIELD, "Text: " + randomUUID().toString()));
+		message.setField(new StringField(Text.FIELD, "Text: " + randomUUID()));
 
-		SessionID sessionID = serverAcceptor.getSessions().stream()
-				.filter(id -> id.getBeginString().equals(fixVersion))
-				.findFirst()
-				.orElseThrow(RuntimeException::new);
+		SessionID sessionID = clientSessionIDMap.get(fixVersion);
 		quickFixJTemplate.send(message, sessionID);
 	}
 
 	@RequestMapping("/send-server-message")
 	@ResponseStatus(OK)
-	public void sendMessageToServer(@RequestParam String fixVersion, @RequestParam String messageType) {
+	public void sendMessageToServer(
+			@RequestParam(name = "fixVersion") String fixVersion,
+			@RequestParam(name = "messageType") String messageType
+	) {
 
 		Map<String, Message> stringMessageMap = messageMap.get(fixVersion);
 		Message message = stringMessageMap.get(messageType);
 		message.setField(new StringField(Text.FIELD, "Text: " + randomUUID().toString()));
 
-		SessionID sessionID = clientInitiator.getSessions().stream()
-				.filter(id -> id.getBeginString().equals(fixVersion))
-				.findFirst()
-				.orElseThrow(RuntimeException::new);
+		SessionID sessionID = serverSessionIDMap.get(fixVersion);
 		quickFixJTemplate.send(message, sessionID);
 	}
 }

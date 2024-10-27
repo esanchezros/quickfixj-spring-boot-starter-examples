@@ -4,7 +4,7 @@
 
 	<groupId>io.allune</groupId>
 	<artifactId>quickfixj-spring-boot-starter-examples</artifactId>
-	<version>2.17.2-SNAPSHOT</version>
+	<version>3.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>QuickFixJ Spring Boot Starter Examples</name>
@@ -13,14 +13,11 @@
 
 	<modules>
 		<module>simple-client</module>
-		<module>simple-client-spring-3</module>
 		<module>simple-client-listener</module>
 		<module>simple-client-with-database</module>
 		<module>simple-client-and-server</module>
 		<module>simple-client-and-server-config-string</module>
-		<module>simple-client-and-server-spring-3</module>
 		<module>simple-server</module>
-		<module>simple-server-spring-3</module>
 		<module>simple-server-listener</module>
 		<module>simple-server-sender</module>
 		<module>simple-server-with-database</module>
@@ -56,11 +53,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 
 		<skipDocker>true</skipDocker>
 		<docker.image.prefix>allune</docker.image.prefix>
-		<quickfixj-spring-boot-starter.version>2.17.1</quickfixj-spring-boot-starter.version>
+		<quickfixj-spring-boot-starter.version>3.0.1</quickfixj-spring-boot-starter.version>
 	</properties>
 
 	<dependencyManagement>
@@ -70,7 +67,15 @@
 				<!-- Import dependency management from Spring Boot -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.7.15</version>
+				<version>3.3.4</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.allune</groupId>
+				<artifactId>quickfixj-spring-boot-starter</artifactId>
+				<version>${quickfixj-spring-boot-starter.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -184,10 +189,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.10.1</version>
+					<version>3.13.0</version>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<release>17</release>
 					</configuration>
 				</plugin>
 				<plugin>

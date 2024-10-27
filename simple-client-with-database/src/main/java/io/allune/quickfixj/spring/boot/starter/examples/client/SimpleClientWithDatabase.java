@@ -15,7 +15,6 @@
  */
 package io.allune.quickfixj.spring.boot.starter.examples.client;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,7 +33,6 @@ import quickfix.ThreadedSocketInitiator;
 import javax.sql.DataSource;
 
 @Slf4j
-@EnableQuickFixJClient
 @SpringBootApplication
 public class SimpleClientWithDatabase {
 
@@ -48,23 +46,33 @@ public class SimpleClientWithDatabase {
 	}
 
 	@Bean
-	public Initiator clientInitiator(quickfix.Application clientApplication, MessageStoreFactory clientMessageStoreFactory,
-	                                 SessionSettings clientSessionSettings, LogFactory clientLogFactory,
-	                                 MessageFactory clientMessageFactory) throws ConfigError {
+	public Initiator clientInitiator(
+			quickfix.Application clientApplication,
+			MessageStoreFactory clientMessageStoreFactory,
+			SessionSettings clientSessionSettings,
+			LogFactory clientLogFactory,
+			MessageFactory clientMessageFactory
+	) throws ConfigError {
 
 		return new ThreadedSocketInitiator(clientApplication, clientMessageStoreFactory, clientSessionSettings,
 				clientLogFactory, clientMessageFactory);
 	}
 
 	@Bean
-	public MessageStoreFactory clientMessageStoreFactory(SessionSettings clientSessionSettings, DataSource dataSource) {
+	public MessageStoreFactory clientMessageStoreFactory(
+			SessionSettings clientSessionSettings,
+			DataSource dataSource
+	) {
 		JdbcStoreFactory jdbcStoreFactory = new JdbcStoreFactory(clientSessionSettings);
 		jdbcStoreFactory.setDataSource(dataSource);
 		return jdbcStoreFactory;
 	}
 
 	@Bean
-	public LogFactory clientLogFactory(SessionSettings clientSessionSettings, DataSource dataSource) {
+	public LogFactory clientLogFactory(
+			SessionSettings clientSessionSettings,
+			DataSource dataSource
+	) {
 		JdbcLogFactory jdbcLogFactory = new JdbcLogFactory(clientSessionSettings);
 		jdbcLogFactory.setDataSource(dataSource);
 		return jdbcLogFactory;

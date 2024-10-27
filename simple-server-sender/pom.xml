@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>quickfixj-spring-boot-starter-examples</artifactId>
 		<groupId>io.allune</groupId>
-		<version>2.17.2-SNAPSHOT</version>
+		<version>3.0.2-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +15,22 @@
 		<dependency>
 			<groupId>io.allune</groupId>
 			<artifactId>quickfixj-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quickfixj</groupId>
+			<artifactId>quickfixj-messages-fix41</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quickfixj</groupId>
+			<artifactId>quickfixj-messages-fix42</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quickfixj</groupId>
+			<artifactId>quickfixj-messages-fix44</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quickfixj</groupId>
+			<artifactId>quickfixj-messages-fix50</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

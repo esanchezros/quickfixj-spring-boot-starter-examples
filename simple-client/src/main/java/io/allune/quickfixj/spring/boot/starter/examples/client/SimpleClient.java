@@ -15,7 +15,6 @@
  */
 package io.allune.quickfixj.spring.boot.starter.examples.client;
 
-import io.allune.quickfixj.spring.boot.starter.EnableQuickFixJClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,7 +31,6 @@ import quickfix.ThreadedSocketInitiator;
 import quickfix.fix41.MessageCracker;
 
 @Slf4j
-@EnableQuickFixJClient
 @SpringBootApplication
 public class SimpleClient {
 
